@@ -1,16 +1,21 @@
 # flappy_bird
 
-A new Flutter project.
+flutterを使用したflappy_birdゲーム
+鳥のキャラクターをタップで飛ばして障害物をよけていくゲーム
 
-## Getting Started
+# 目的
 
-This project is a starting point for a Flutter application.
+flutterのアニメーションの勉強のため
 
-A few resources to get you started if this is your first Flutter project:
+# 状態管理
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+StatefulWidget
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# 設計
+
+StatefulWidgetで実装しているため設計と呼べるものはなし
+
+# 参考文献
+
+https://www.youtube.com/watch?v=vgmVPpFP0fI
+
