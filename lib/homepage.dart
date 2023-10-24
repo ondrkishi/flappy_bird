@@ -40,8 +40,8 @@ class _HomePageState extends State<HomePage> {
     });
     // [Timer.periodic]：特定の時間毎に処理を繰り返す
     Timer.periodic(const Duration(milliseconds: 50), (timer) {
-      time += 0.05;
-      height = -4.9 * time * time + 3 * time;
+      time += 0.04;
+      height = -4.9 * time * time + 2.5 * time;
       setState(() {
         // 鳥を下に落とす
         birdY = initialHeight - height;
@@ -80,7 +80,23 @@ class _HomePageState extends State<HomePage> {
         });
       }
 
-      // TODO:障害物に当たった時の処理
+      // 障害物に当たっているかの判定
+      if (barrierXone < 0.3 && barrierXone > -0.3) {
+        if (birdY > 0.35 || birdY < -0.55) {
+          timer.cancel();
+          setState(() {
+            gameState = GameState.end;
+          });
+        }
+      }
+      if (barrierXtowe < 0.3 && barrierXtowe > -0.3) {
+        if (birdY > 0.7 || birdY < -0.4) {
+          timer.cancel();
+          setState(() {
+            gameState = GameState.end;
+          });
+        }
+      }
     });
   }
 
@@ -88,12 +104,16 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       birdY = 0;
       time = 0;
+      height = 0;
+      initialHeight = birdY;
+
       barrierXone = 1;
       barrierXtowe = barrierXone + 1.7;
       score = 0;
 
       isBarrierOneSurpassed = false;
       isBarrierOneSurpassed = false;
+      gameState = GameState.beforeStart;
     });
   }
 
@@ -110,7 +130,6 @@ class _HomePageState extends State<HomePage> {
             break;
           case GameState.end:
             replay();
-            startGame();
             break;
         }
       },
