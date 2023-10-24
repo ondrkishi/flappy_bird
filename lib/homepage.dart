@@ -24,6 +24,7 @@ class _HomePageState extends State<HomePage> {
   bool isBarrierTwoSurpassed = false;
 
   int score = 0;
+  int best = 0;
 
   GameState gameState = GameState.beforeStart;
 
@@ -76,6 +77,7 @@ class _HomePageState extends State<HomePage> {
       if (birdY > 1) {
         timer.cancel();
         setState(() {
+          if (score > best) best = score;
           gameState = GameState.end;
         });
       }
@@ -85,6 +87,7 @@ class _HomePageState extends State<HomePage> {
         if (birdY > 0.35 || birdY < -0.55) {
           timer.cancel();
           setState(() {
+            if (score > best) best = score;
             gameState = GameState.end;
           });
         }
@@ -93,6 +96,7 @@ class _HomePageState extends State<HomePage> {
         if (birdY > 0.7 || birdY < -0.4) {
           timer.cancel();
           setState(() {
+            if (score > best) best = score;
             gameState = GameState.end;
           });
         }
@@ -150,7 +154,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
             Container(height: 15, color: Colors.green[400]),
-            Expanded(child: _scoreBoard(score.toString())),
+            Expanded(child: _scoreBoard(score.toString(), best.toString())),
           ],
         ),
       ),
@@ -191,21 +195,40 @@ class _HomePageState extends State<HomePage> {
   }
 
   // スコアの表示
-  Widget _scoreBoard(String score) {
+  Widget _scoreBoard(String score, String best) {
     return Container(
       color: Colors.brown,
       child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            const Text(
-              'SCORE',
-              style: TextStyle(color: Colors.white, fontSize: 20),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  'SCORE',
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+                const SizedBox(height: 20),
+                Text(
+                  score,
+                  style: const TextStyle(color: Colors.white, fontSize: 35),
+                ),
+              ],
             ),
-            const SizedBox(height: 20),
-            Text(
-              score,
-              style: const TextStyle(color: Colors.white, fontSize: 35),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  'BEST',
+                  style: TextStyle(color: Colors.white, fontSize: 20),
+                ),
+                const SizedBox(height: 20),
+                Text(
+                  best,
+                  style: const TextStyle(color: Colors.white, fontSize: 35),
+                ),
+              ],
             ),
           ],
         ),
